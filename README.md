@@ -27,7 +27,7 @@ app.use(globalizeExpress(config));
 ```javascript
 var config = {
 	// list of supported locales
-    locales:['en', 'ja],
+    locales:['en', 'ja'],
 
     // you may alter a site wide default locale
     defaultLocale: 'en',
