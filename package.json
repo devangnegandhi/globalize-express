@@ -1,0 +1,34 @@
+{
+  "name": "globalize-express",
+  "version": "1.0.0",
+  "description": "The globalize middleware for the express framework",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/devangnegandhi/globalize-express.git"
+  },
+  "keywords": [
+    "globalize",
+    "express",
+    "localization",
+    "internationalization",
+    "globalization",
+    "transalation",
+    "i18n",
+    "l10n",
+    "g11n"
+  ],
+  "author": "Devang Negandhi (devangnegandhi@gmail.com)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/devangnegandhi/globalize-express/issues"
+  },
+  "homepage": "https://github.com/devangnegandhi/globalize-express",
+  "dependencies": {
+    "cldr-data": "^26.0.10",
+    "globalize": "^1.0.0-alpha.18"
+  }
+}
