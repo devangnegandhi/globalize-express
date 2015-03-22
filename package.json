@@ -4,7 +4,7 @@
   "description": "The globalize middleware for the express framework",
   "main": "./src/globalize-express.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "grunt mocha_istanbul"
   },
   "repository": {
     "type": "git",

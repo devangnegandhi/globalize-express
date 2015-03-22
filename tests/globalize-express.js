@@ -139,7 +139,7 @@ describe('globalize-express', function(){
 
 	describe('using the devMode', function() {
 
-		it('should call load and load message twice on init', function() {
+		it('should call load and load message twice on init and unload globalize', function() {
 			globalizeStub.reset();
 			globalizeStub.load.reset();
 			globalizeStub.loadMessages.reset();
@@ -149,24 +149,15 @@ describe('globalize-express', function(){
 			nextStub = sandbox.stub();
 			mockConfig.devMode = true;
 
+
+			expect(require.cache[require.resolve('globalize')]).to.exist
+			
 			globalizeMiddleware = globalizeExpress(mockConfig);
 
 			globalizeMiddleware(reqStub, resStub, nextStub);
 
 			expect(globalizeStub.load.callCount).to.equal(2);
 			expect(globalizeStub.loadMessages.callCount).to.equal(4);
-		});
-
-		it('it should unload the globalize module', function() {
-
-			reqStub = sandbox.stub();
-			resStub = sandbox.stub();
-			nextStub = sandbox.stub();
-			mockConfig.devMode = true;
-
-			globalizeMiddleware = globalizeExpress(mockConfig);
-
-			globalizeMiddleware(reqStub, resStub, nextStub);
 
 			expect(require.cache[require.resolve('globalize')]).to.not.exist
 		});
