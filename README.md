@@ -14,9 +14,7 @@ var express = require('express'),
     
 ```
 
-##Using with Express.js
-
-### Use as a middleware
+## Simple Example
 	
 ```javascript
 //Add as a middleware to your express app
@@ -24,12 +22,12 @@ app.use(globalizeExpress(config));
     
 ```
 
-### List of configuration options
+### list of configuration options
 
 ```javascript
 var config = {
 	// list of supported locales
-    locales:['en', 'ja],
+    locales:['en', 'ja'],
 
     // you may alter a site wide default locale
     defaultLocale: 'en',
@@ -49,28 +47,3 @@ var config = {
     devMode: false
 };
 ```
-
-### Inside Your Express View
-The middleware add a `Globalize` object to the `request` object of your app. You can use this as shown here:
-
-```javascript
-module.exports = {
-    index: function(req, res) {
-        res.render("index", {
-            title: req.Globalize.formatMessage("My Site Title"),
-            desc: req.Globalize.formatMessage("My Site Description")
-        });
-    }
-};
-```
-
-For more info on the API for Globalize, checkout [jquery/Globalize](https://github.com/jquery/globalize)
-
-#### What locale does the `Globalize` object use?
-The `Globalize` object selects the locale in the following manner (and priority):
-
-1. It looks for a `lang` query parameter in the URL (For example: `http://yoursite.com?lang=ja` would force the gloablize-express middleware to use japanese locale)
-2. It then looks for a  cookie with the name `lang` in the browser cookie that was sent back (if you have configured cookies)
-3. Finally, it auto-detects the client browser locale based on the `accept-language` header property.
-
-Depending on what was found first, it uses that as its locale to returns appropriate strings.
