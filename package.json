@@ -30,5 +30,16 @@
   "dependencies": {
     "cldr-data": "^26.0.10",
     "globalize": "^1.0.0-alpha.18"
+  },
+  "devDependencies": {
+    "chai": "^2.1.2",
+    "grunt": "^0.4.5",
+    "grunt-mocha-istanbul": "^2.3.1",
+    "istanbul": "^0.3.8",
+    "load-grunt-config": "^0.16.0",
+    "mocha": "^2.2.1",
+    "mockery": "^1.4.0",
+    "sinon": "^1.14.1",
+    "time-grunt": "^1.1.0"
   }
 }

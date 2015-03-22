@@ -91,15 +91,15 @@ var globalizeExpress = function (opts) {
 	    var locale = '';
 
 	    // If lang param is specified in the URL as a query, use that
-	    if(req.query.lang) {
+	    if(req.query && req.query.lang) {
 	        locale = req.query.lang;
 
         // Else if locale specified in the client cookie, use that
-	    }  else if (opts.cookieName && req.cookies[opts.cookieName]) {
-	        locale = req.cookies.lang;
+	    }  else if (req.cookies && opts.cookieName && req.cookies[opts.cookieName]) {
+	        locale = req.cookies[opts.cookieName];
 
         // Else if locale specified in the browser header, use that
-	    } else if (req.headers['accept-language']) {
+	    } else if (req.headers && req.headers['accept-language']) {
 	        locale = req.headers['accept-language'].split(',')[0];
 	    }
 
