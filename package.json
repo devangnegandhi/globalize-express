@@ -4,7 +4,8 @@
   "description": "The globalize middleware for the express framework",
   "main": "./src/globalize-express.js",
   "scripts": {
-    "test": "grunt mocha_istanbul"
+    "test": "grunt mocha_istanbul",
+    "coveralls": "cat lcov.info | node_modules/.bin/coveralls"
   },
   "repository": {
     "type": "git",
@@ -33,6 +34,7 @@
   },
   "devDependencies": {
     "chai": "^2.1.2",
+    "coveralls": "^2.11.2",
     "grunt": "^0.4.5",
     "grunt-mocha-istanbul": "^2.3.1",
     "istanbul": "^0.3.8",
