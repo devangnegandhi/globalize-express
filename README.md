@@ -1,3 +1,7 @@
+[![Build Status](https://img.shields.io/codeship/ac9f04d0-b318-0132-f2c3-7e1d8cf367b9/master.svg)](https://codeship.com/projects/70145) |
+[![Coverage Status](https://coveralls.io/repos/devangnegandhi/globalize-express/badge.svg?branch=master)](https://coveralls.io/r/devangnegandhi/globalize-express?branch=master) |
+[![Dependency Status](https://david-dm.org/devangnegandhi/globalize-express.svg)](https://david-dm.org/devangnegandhi/globalize-express)
+
 # globalize-express
 The [globalize](https://github.com/jquery/globalize) middleware for the express framework
 
@@ -75,5 +79,3 @@ The `Globalize` object selects the locale in the following manner (and priority)
 3. Finally, it auto-detects the client browser locale based on the `accept-language` header property.
 
 Depending on what was found first, it uses that as its locale to returns appropriate strings.
-=======
->>>>>>> 6f2be5a1a775d1e45efcec4527e5db037c08bd89
