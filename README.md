@@ -1,6 +1,6 @@
-[![Build Status](https://img.shields.io/codeship/ac9f04d0-b318-0132-f2c3-7e1d8cf367b9/master.svg)](https://codeship.com/projects/70145) |
-[![Coverage Status](https://coveralls.io/repos/devangnegandhi/globalize-express/badge.svg?branch=master)](https://coveralls.io/r/devangnegandhi/globalize-express?branch=master) |
-[![Dependency Status](https://david-dm.org/devangnegandhi/globalize-express.svg)](https://david-dm.org/devangnegandhi/globalize-express) |
+[![Build Status](https://img.shields.io/codeship/ac9f04d0-b318-0132-f2c3-7e1d8cf367b9/master.svg)](https://codeship.com/projects/70145)
+[![Coverage Status](https://coveralls.io/repos/devangnegandhi/globalize-express/badge.svg?branch=master)](https://coveralls.io/r/devangnegandhi/globalize-express?branch=master)
+[![Dependency Status](https://david-dm.org/devangnegandhi/globalize-express.svg)](https://david-dm.org/devangnegandhi/globalize-express)
 [![devDependency Status](https://david-dm.org/devangnegandhi/globalize-express/dev-status.svg)](https://david-dm.org/devangnegandhi/globalize-express#info=devDependencies)
 
 # globalize-express
@@ -54,7 +54,6 @@ var config = {
     devMode: false
 };
 ```
-<<<<<<< HEAD
 
 ### Inside Your Express View
 The middleware add a `Globalize` object to the `request` object of your app. You can use this as shown here:
@@ -79,4 +78,4 @@ The `Globalize` object selects the locale in the following manner (and priority)
 2. It then looks for a  cookie with the name `lang` in the browser cookie that was sent back (if you have configured cookies)
 3. Finally, it auto-detects the client browser locale based on the `accept-language` header property.
 
-Depending on what was found first, it uses that as its locale to returns appropriate strings.
+Depending on what was found first, it uses that as its locale to return appropriate strings.
