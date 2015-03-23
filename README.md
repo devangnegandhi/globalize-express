@@ -1,6 +1,7 @@
 [![Build Status](https://img.shields.io/codeship/ac9f04d0-b318-0132-f2c3-7e1d8cf367b9/master.svg)](https://codeship.com/projects/70145) |
 [![Coverage Status](https://coveralls.io/repos/devangnegandhi/globalize-express/badge.svg?branch=master)](https://coveralls.io/r/devangnegandhi/globalize-express?branch=master) |
-[![Dependency Status](https://david-dm.org/devangnegandhi/globalize-express.svg)](https://david-dm.org/devangnegandhi/globalize-express)
+[![Dependency Status](https://david-dm.org/devangnegandhi/globalize-express.svg)](https://david-dm.org/devangnegandhi/globalize-express) |
+[![devDependency Status](https://david-dm.org/devangnegandhi/globalize-express/dev-status.svg)](https://david-dm.org/devangnegandhi/globalize-express#info=devDependencies)
 
 # globalize-express
 The [globalize](https://github.com/jquery/globalize) middleware for the express framework
