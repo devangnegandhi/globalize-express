@@ -1,4 +1,5 @@
 module.exports = function (grunt, opts) {
+	'use strict';
 
 	return {
         unitTests: {
@@ -15,5 +16,5 @@ module.exports = function (grunt, opts) {
 				}
             }
         }
-	}
+	};
 };

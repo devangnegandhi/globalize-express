@@ -1,11 +1,12 @@
+var path = require('path');
 
 module.exports = function (grunt, opts) {
+	'use strict';
+
 	return {
-        eslint: {
-            options: {
-	            configFile: 'confug/eslint/eslint.json'
-	        },
-	        target: opts.jsFilesArr
-        }
-	}
+        options: {
+            configFile: path.join('config', 'eslint', 'eslint.json')
+        },
+        target: opts.jsFilesArr
+	};
 };

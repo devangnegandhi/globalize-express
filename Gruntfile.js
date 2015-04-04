@@ -2,11 +2,12 @@ var path = require('path');
 
 /**
  * Main Grunt configuration
- * @param  {Object} grunt The grunt object
+ * @param  {Object} grunt The grunt objects
  */
 module.exports = function (grunt) {
-	//Set port for selenium to listen on
-	//process.env.SELENIUM_LAUNCHER_PORT = 4445;
+	'use strict';
+	// Set port for selenium to listen on
+	// process.env.SELENIUM_LAUNCHER_PORT = 4445;
 
 	// measures the time each task takes
 	require('time-grunt')(grunt);
@@ -17,12 +18,12 @@ module.exports = function (grunt) {
 		init: true,
 		data: require(path.join(process.cwd(), 'config', 'grunt', 'grunt_options.js'))(grunt),
 		loadGruntTasks: {
-			pattern: [ 
+			pattern: [
 				'grunt-*',
-				'intern' 
+				'intern'
 			],
 			config: require('./package.json'),
 			scope: 'devDependencies'
 		}
 	});
-}
+};

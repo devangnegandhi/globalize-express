@@ -1,3 +1,3 @@
 require('globalize');
 
-module.exports = "This is a mock!!"
+module.exports = 'This is a mock!!';
