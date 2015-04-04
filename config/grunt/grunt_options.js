@@ -1,8 +1,3 @@
-/**
- * @copyright Copyright (C) 2014 WanderingDesi.com - All Rights Reserved
- * Unauthorized copying of this file, via any medium is strictly prohibited
- * Proprietary and confidential
- */
 var path = require('path');
 
 module.exports = function (grunt) {
