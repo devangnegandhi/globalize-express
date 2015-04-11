@@ -9,24 +9,25 @@ The [globalize](https://github.com/jquery/globalize) middleware for the express 
 ## Install
 
     npm install globalize-express
-    
+
 ## Load
 
 ```javascript
 // load modules
 var express = require('express'),
     globalizeExpress = require("globalize-express");
-    
+
 ```
 
 ##Using with Express.js
 
 ### Use as a middleware
-    
+
 ```javascript
-//Add as a middleware to your express app
+// Add as a middleware to your express app
+var app = express();
 app.use(globalizeExpress(config));
-    
+
 ```
 
 ### List of configuration options
@@ -36,13 +37,13 @@ var config = {
     // list of supported locales
     locales:['en', 'ja'],
 
-    // you may alter a site wide default locale
+    // locale chosen if the requested locales was not found in the 'locales' array
     defaultLocale: 'en',
 
-    // sets a custom cookie name to parse locale settings from
+    // A custom cookie name which may contain the locale to use
     cookieName: null,
 
-    // where are the locale json files stored
+    // location of all the locale json files on disk
     directory: __dirname + '/locales',
 
     // An array of cldr data to load into globalize
@@ -50,13 +51,13 @@ var config = {
     localeData: [
     ],
 
-    // Set if running in development mode. This will delete cache before every access
+    // Set this to true if running in development mode. This will delete cache before every access for localized string
     devMode: false
 };
 ```
 
 ### Inside Your Express View
-The middleware add a `Globalize` object to the `request` object of your app. You can use this as shown here:
+The middleware adds a `Globalize` object to the `request` object of your app. You can use this as shown here:
 
 ```javascript
 module.exports = {
@@ -72,10 +73,12 @@ module.exports = {
 For more info on the API for Globalize, checkout [jquery/Globalize](https://github.com/jquery/globalize)
 
 #### What locale does the `Globalize` object use?
-The `Globalize` object selects the locale in the following manner (and priority):
+For every individual request that your express app receives, the `Globalize` object selects the locale in the following manner (and priority):
 
 1. It looks for a `lang` query parameter in the URL (For example: `http://yoursite.com?lang=ja` would force the gloablize-express middleware to use japanese locale)
 2. It then looks for a  cookie with the name `lang` in the browser cookie that was sent back (if you have configured cookies)
 3. Finally, it auto-detects the client browser locale based on the `accept-language` header property.
 
 Depending on what was found first, it uses that as its locale to return appropriate strings.
+
+**NOTE**: if the locale selected was not in the `config.locales` array, then it will fall back to the `config.defaultLocale` locale
