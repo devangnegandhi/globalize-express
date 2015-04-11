@@ -26,4 +26,17 @@ module.exports = function (grunt) {
 			scope: 'devDependencies'
 		}
 	});
+
+	grunt.registerTask('lint', [
+		'eslint'
+	]);
+
+	grunt.registerTask('test', [
+		'mocha_istanbul'
+	]);
+
+	grunt.registerTask('verify', [
+		'lint',
+		'test'
+	]);
 };
