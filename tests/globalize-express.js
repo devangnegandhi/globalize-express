@@ -1,6 +1,6 @@
 var mockery = require('mockery');
 var sinon = require('sinon');
-var expect = require('chai').expect;
+var fs = require('fs');
 var mockConfig = require('./mocks/mockConfig');
 var globalizeExpress;
 
@@ -24,6 +24,7 @@ describe('globalize-express', function () {
 		mockery.enable();
 		mockery.registerMock('globalize', globalizeStub);
 		mockery.registerAllowable('fs');
+		mockery.registerAllowable('kew');
 		mockery.registerAllowable('path');
 		mockery.registerAllowable('../src/globalize-express');
 		mockery.registerAllowable('../tests/mocks/mockData');
@@ -35,19 +36,37 @@ describe('globalize-express', function () {
 	});
 
 	describe('config', function () {
-		it('should load up fine', function () {
-			globalizeExpress(mockConfig);
+		var globalizeMiddleware;
 
-			expect(globalizeStub.load.getCall(0).args[0]).to.equal('This is a mock!!');
-			expect(globalizeStub.loadMessages.getCall(0).args[0].type).to.equal('mock');
-			expect(globalizeStub.loadMessages.getCall(1).args[0].type).to.equal('another mock');
+		it('should load up fine', function (done) {
+			var mockReq = {},
+				mockRes = {};
+
+			global.expectCount = 3;
+
+			globalizeMiddleware = globalizeExpress(mockConfig);
+
+			globalizeMiddleware(mockReq, mockRes, function (err) {
+				try {
+					if (err) {
+						throw err;
+					}
+
+					expect(globalizeStub.load.getCall(0).args[0]).to.equal('This is a mock!!');
+					expect(globalizeStub.loadMessages.getCall(0).args[0].type).to.equal('mock');
+					expect(globalizeStub.loadMessages.getCall(1).args[0].type).to.equal('another mock');
+
+					done();
+				} catch (e) {
+					done(e);
+				}
+			});
 		});
 	});
 
 	describe('using the middleware', function () {
 		var globalizeMiddleware,
 			middlewareSandbox,
-			nextStub,
 			reqStub,
 			resStub;
 
@@ -57,7 +76,6 @@ describe('globalize-express', function () {
 			reqStub.cookies = sandbox.stub();
 			reqStub.headers = sandbox.stub();
 			resStub = sandbox.stub();
-			nextStub = sandbox.stub();
 
 			reqStub.query.lang = null;
 			reqStub.cookies[mockConfig.cookieName] = null;
@@ -66,68 +84,113 @@ describe('globalize-express', function () {
 			middlewareSandbox = sinon.sandbox.create();
 		});
 
-		it('should use req.query.lang when available', function () {
+		it('should use req.query.lang when available', function (done) {
+			global.expectCount = 1;
 			globalizeMiddleware = globalizeExpress(mockConfig);
 
 			middlewareSandbox.stub(reqStub.query, 'lang', 'es');
 
-			globalizeMiddleware(reqStub, resStub, nextStub);
+			globalizeMiddleware(reqStub, resStub, function (err) {
+				try {
+					if (err) {
+						throw err;
+					}
 
-			expect(reqStub.locale).to.equal('es');
+					expect(reqStub.locale).to.equal('es');
+
+					done();
+				} catch (e) {
+					done(e);
+				}
+			});
 		});
 
-		it('should use req.cookies[opts.cookieName] when available', function () {
+		it('should use req.cookies[opts.cookieName] when available', function (done) {
+			global.expectCount = 1;
 			globalizeMiddleware = globalizeExpress(mockConfig);
 
 			middlewareSandbox.stub(reqStub.cookies, mockConfig.cookieName, 'de');
 
-			globalizeMiddleware(reqStub, resStub, nextStub);
+			globalizeMiddleware(reqStub, resStub, function (err) {
+				try {
+					if (err) {
+						throw err;
+					}
 
-			expect(reqStub.locale).to.equal('de');
+					expect(reqStub.locale).to.equal('de');
+
+					done();
+				} catch (e) {
+					done(e);
+				}
+			});
 		});
 
-		it('should use req.headers["accept-language"] when available', function () {
+		it('should use req.headers["accept-language"] when available', function (done) {
+			global.expectCount = 1;
 			globalizeMiddleware = globalizeExpress(mockConfig);
 
 			middlewareSandbox.stub(reqStub.headers, 'accept-language', 'fr,someheaderdata');
 
-			globalizeMiddleware(reqStub, resStub, nextStub);
+			globalizeMiddleware(reqStub, resStub, function (err) {
+				try {
+					if (err) {
+						throw err;
+					}
 
-			expect(reqStub.locale).to.equal('fr');
+					expect(reqStub.locale).to.equal('fr');
+
+					done();
+				} catch (e) {
+					done(e);
+				}
+			});
 		});
 
-		it('should use the default when the language specified is not in the list of locales', function () {
+		it('should use the default when the language specified is not in the list of locales', function (done) {
+			global.expectCount = 1;
 			reqStub.query = null;
 			reqStub.cookies = null;
 			reqStub.headers = null;
 
 			globalizeMiddleware = globalizeExpress(mockConfig);
 
-			globalizeMiddleware(reqStub, resStub, nextStub);
+			globalizeMiddleware(reqStub, resStub, function (err) {
+				try {
+					if (err) {
+						throw err;
+					}
 
-			expect(reqStub.locale).to.equal(mockConfig.defaultLocale);
+					expect(reqStub.locale).to.equal(mockConfig.defaultLocale);
+
+					done();
+				} catch (e) {
+					done(e);
+				}
+			});
 		});
 
-		it('should assign the correct Globalize object to req', function () {
+		it('should assign the correct Globalize object to req', function (done) {
+			global.expectCount = 1;
 			globalizeMiddleware = globalizeExpress(mockConfig);
 
 			middlewareSandbox.stub(reqStub.query, 'lang', 'es');
 
-			globalizeMiddleware(reqStub, resStub, nextStub);
+			globalizeMiddleware(reqStub, resStub, function (err) {
+				try {
+					if (err) {
+						throw err;
+					}
 
-			/*eslint-disable no-unused-expressions*/
-			expect(reqStub.Globalize).to.exist;
-			/*eslint-enable no-unused-expressions*/
-		});
+					/*eslint-disable no-unused-expressions*/
+					expect(reqStub.Globalize).to.exist;
+					/*eslint-enable no-unused-expressions*/
 
-		it('should call next() when everything is done', function () {
-			globalizeMiddleware = globalizeExpress(mockConfig);
-
-			middlewareSandbox.stub(reqStub.query, 'lang', 'es');
-
-			globalizeMiddleware(reqStub, resStub, nextStub);
-
-			expect(nextStub.callCount).to.equal(1);
+					done();
+				} catch (e) {
+					done(e);
+				}
+			});
 		});
 
 		afterEach(function () {
@@ -136,11 +199,12 @@ describe('globalize-express', function () {
 	});
 
 	describe('using the devMode', function () {
-		it('should call load and load message twice on init and unload globalize', function () {
+		it('should call load and load message twice on init and unload globalize', function (done) {
 			var globalizeMiddleware,
-				nextStub,
 				reqStub,
 				resStub;
+
+			global.expectCount = 4;
 
 			globalizeStub.reset();
 			globalizeStub.load.reset();
@@ -148,7 +212,6 @@ describe('globalize-express', function () {
 
 			reqStub = sandbox.stub();
 			resStub = sandbox.stub();
-			nextStub = sandbox.stub();
 			mockConfig.devMode = true;
 
 			/*eslint-disable no-unused-expressions*/
@@ -157,14 +220,121 @@ describe('globalize-express', function () {
 
 			globalizeMiddleware = globalizeExpress(mockConfig);
 
-			globalizeMiddleware(reqStub, resStub, nextStub);
+			globalizeMiddleware(reqStub, resStub, function (err) {
+				try {
+					if (err) {
+						throw err;
+					}
 
-			expect(globalizeStub.load.callCount).to.equal(2);
-			expect(globalizeStub.loadMessages.callCount).to.equal(4);
+					expect(globalizeStub.load.callCount).to.equal(2);
+					expect(globalizeStub.loadMessages.callCount).to.equal(4);
 
-			/*eslint-disable no-unused-expressions*/
-			expect(require.cache[require.resolve('globalize')]).to.not.exist;
-			/*eslint-enable no-unused-expressions*/
+					/*eslint-disable no-unused-expressions*/
+					expect(require.cache[require.resolve('globalize')]).to.not.exist;
+					/*eslint-enable no-unused-expressions*/
+
+					done();
+				} catch (e) {
+					done(e);
+				}
+			});
+		});
+
+		afterEach(function () {
+			mockConfig.devMode = false;
+		});
+	});
+
+	describe('reading in invalid locale directory/file', function () {
+		var globalizeMiddleware,
+			mockLocaleSandbox,
+			reqStub,
+			resStub;
+
+		beforeEach(function () {
+			mockLocaleSandbox = sinon.sandbox.create();
+
+			globalizeStub.reset();
+			globalizeStub.load.reset();
+			globalizeStub.loadMessages.reset();
+
+			reqStub = sandbox.stub();
+			resStub = sandbox.stub();
+		});
+
+		it('should pass an error to next() on invalid locale directory', function (done) {
+			global.expectCount = 3;
+
+			mockLocaleSandbox.stub(mockConfig, 'directory', './invalid/directory/');
+
+			globalizeMiddleware = globalizeExpress(mockConfig);
+
+			globalizeMiddleware(reqStub, resStub, function (err) {
+				try {
+					/*eslint-disable no-unused-expressions*/
+					expect(err).to.exist;
+					/*eslint-enable no-unused-expressions*/
+
+					expect(globalizeStub.load.callCount).to.equal(1);
+					expect(globalizeStub.loadMessages.callCount).to.equal(0);
+
+					done();
+				} catch (e) {
+					done(e);
+				}
+			});
+		});
+
+		it('should pass an error to next() on invalid locale file', function (done) {
+			global.expectCount = 3;
+
+			mockLocaleSandbox = sinon.stub(fs, 'readdir');
+			mockLocaleSandbox.onCall(0).callsArgWith(1, null, ['./invalid/file']);
+			// mockLocaleSandbox.onCall(1).callsArgWith(1, new Error('dummy'), ['./invalid/file']);
+
+			globalizeMiddleware = globalizeExpress(mockConfig);
+
+			globalizeMiddleware(reqStub, resStub, function (err) {
+				try {
+					/*eslint-disable no-unused-expressions*/
+					expect(err).to.exist;
+					/*eslint-enable no-unused-expressions*/
+
+					expect(globalizeStub.load.callCount).to.equal(1);
+					expect(globalizeStub.loadMessages.callCount).to.equal(0);
+					done();
+				} catch (e) {
+					done(e);
+				}
+			});
+		});
+
+		it('should pass an error to next() on invalid locale file in a sub directory', function (done) {
+			global.expectCount = 3;
+
+			mockLocaleSandbox = sinon.stub(fs, 'readdir');
+			mockLocaleSandbox.onCall(0).callsArgWith(1, null, ['./subdir']);
+			mockLocaleSandbox.onCall(1).callsArgWith(1, null, ['./invalid/file']);
+
+			globalizeMiddleware = globalizeExpress(mockConfig);
+
+			globalizeMiddleware(reqStub, resStub, function (err) {
+				try {
+					/*eslint-disable no-unused-expressions*/
+					expect(err).to.exist;
+					/*eslint-enable no-unused-expressions*/
+
+					expect(globalizeStub.load.callCount).to.equal(1);
+					expect(globalizeStub.loadMessages.callCount).to.equal(0);
+					done();
+				} catch (e) {
+					done(e);
+				}
+			});
+		});
+
+		afterEach(function () {
+			mockLocaleSandbox.restore();
 		});
 	});
 

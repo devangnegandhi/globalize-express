@@ -1,23 +1,66 @@
 var fs = require('fs'),
 	globalize = require('globalize'),
+	kew = require('kew'),
 	path = require('path');
 
-var	globalizeExpress;
+var	globalizeExpress,
+	loadMessages;
 
 /**
  * Load locale message into globalize
  * @param  {String} 	dir     The directory from where we load in the locale files
  * @param  {Boolean} 	devMode Is the env in development.
+ * @return {Promise}	A promise that the locale files will be loaded
  */
 function loadLocaleFiles (dir, devMode) {
 	'use strict';
+	var readDirPromise = kew.defer();
 
 	// Read all files in the locale directory
-	fs.readdirSync(dir).forEach(function (file) {
-		var filename = path.join(dir, file);
+	fs.readdir(dir, function (err, files) {
+		var filePromises = [];
+
+		// If reading the files failed.
+		if (err) {
+			// Reject the promise if there was an error reading the dir
+			readDirPromise.reject(err);
+			return;
+		}
+
+		files.forEach(function (file) {
+			var filePromise,
+				filename = path.join(dir, file);
+
+			filePromise = loadMessages(filename, devMode);
+
+			filePromises.push(filePromise);
+		});
+
+		kew.all(filePromises)
+			.then(function () {
+				readDirPromise.resolve();
+			}).fail(function (error) {
+				readDirPromise.reject(error);
+			});
+	});
+
+	return readDirPromise.promise;
+}
+
+loadMessages = function (filename, devMode) {
+	'use strict';
+	var filePromise = kew.defer();
+
+	fs.stat(filename, function (err, stat) {
+		var subDirPromise;
+
+		if (err) {
+			filePromise.reject(err);
+			return;
+		}
 
 		// If the file is a file and not a directory, then load it in
-		if (fs.statSync(filename).isFile()) {
+		if (stat.isFile()) {
 			// If we are in development env, then unload the existing locale
 			// files from the requires cache.
 			if (devMode) {
@@ -27,12 +70,22 @@ function loadLocaleFiles (dir, devMode) {
 			// Load the locale files one by one
 			globalize.loadMessages(require(filename));
 
+			filePromise.resolve();
+
 		// Else if the file is a directory, then read all the files in it
 		} else {
-			loadLocaleFiles(filename, devMode);
+			subDirPromise = loadLocaleFiles(filename, devMode);
+			subDirPromise
+				.then(function () {
+					filePromise.resolve();
+				}).fail(function (error) {
+					filePromise.reject(error);
+				});
 		}
 	});
-}
+
+	return filePromise.promise;
+};
 
 /**
  * Load in gloabalize locale data
@@ -87,13 +140,14 @@ function unloadModule (moduleName) {
  */
 globalizeExpress = function (opts) {
 	'use strict';
-	var globalizeMiddleware;
+	var globalizeMiddleware,
+		loadLocaleFilesPromise;
 
 	// Load the locale data from disk
 	loadLocaleData(opts.localeData);
 
 	// Load the locales from disk
-	loadLocaleFiles(opts.directory);
+	loadLocaleFilesPromise = loadLocaleFiles(opts.directory);
 
 	/**
 	 * The middleware to setup localization
@@ -130,14 +184,19 @@ globalizeExpress = function (opts) {
 
 			globalize = require('globalize');
 			loadLocaleData(opts.localeData);
-			loadLocaleFiles(opts.directory, opts.devMode);
+			loadLocaleFilesPromise = loadLocaleFiles(opts.directory, opts.devMode);
 		}
 
-		// Assign globalize objects to the req object
-		req.Globalize = globalize(locale);
-		req.locale = locale;
+		loadLocaleFilesPromise
+			.then(function () {
+				// Assign globalize objects to the req object
+				req.Globalize = globalize(locale);
+				req.locale = locale;
 
-		next();
+				next();
+			}).fail(function (err) {
+				next(err);
+			});
 	};
 
 	return globalizeMiddleware;
