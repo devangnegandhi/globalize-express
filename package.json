@@ -1,6 +1,6 @@
 {
   "name": "globalize-express",
-  "version": "1.1.3",
+  "version": "1.1.4",
   "description": "The globalize middleware for the express framework",
   "main": "./src/globalize-express.js",
   "scripts": {
