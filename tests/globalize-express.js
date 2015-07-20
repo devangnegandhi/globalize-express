@@ -182,9 +182,9 @@ describe('globalize-express', function () {
 						throw err;
 					}
 
-					/*eslint-disable no-unused-expressions*/
+					/* eslint-disable no-unused-expressions */
 					expect(reqStub.Globalize).to.exist;
-					/*eslint-enable no-unused-expressions*/
+					/* eslint-enable no-unused-expressions */
 
 					done();
 				} catch (e) {
@@ -214,9 +214,9 @@ describe('globalize-express', function () {
 			resStub = sandbox.stub();
 			mockConfig.devMode = true;
 
-			/*eslint-disable no-unused-expressions*/
+			/* eslint-disable no-unused-expressions */
 			expect(require.cache[require.resolve('globalize')]).to.exist;
-			/*eslint-enable no-unused-expressions*/
+			/* eslint-enable no-unused-expressions */
 
 			globalizeMiddleware = globalizeExpress(mockConfig);
 
@@ -229,9 +229,9 @@ describe('globalize-express', function () {
 					expect(globalizeStub.load.callCount).to.equal(2);
 					expect(globalizeStub.loadMessages.callCount).to.equal(4);
 
-					/*eslint-disable no-unused-expressions*/
+					/* eslint-disable no-unused-expressions */
 					expect(require.cache[require.resolve('globalize')]).to.not.exist;
-					/*eslint-enable no-unused-expressions*/
+					/* eslint-enable no-unused-expressions */
 
 					done();
 				} catch (e) {
@@ -271,9 +271,9 @@ describe('globalize-express', function () {
 
 			globalizeMiddleware(reqStub, resStub, function (err) {
 				try {
-					/*eslint-disable no-unused-expressions*/
+					/* eslint-disable no-unused-expressions */
 					expect(err).to.exist;
-					/*eslint-enable no-unused-expressions*/
+					/* eslint-enable no-unused-expressions */
 
 					expect(globalizeStub.load.callCount).to.equal(1);
 					expect(globalizeStub.loadMessages.callCount).to.equal(0);
@@ -296,9 +296,9 @@ describe('globalize-express', function () {
 
 			globalizeMiddleware(reqStub, resStub, function (err) {
 				try {
-					/*eslint-disable no-unused-expressions*/
+					/* eslint-disable no-unused-expressions */
 					expect(err).to.exist;
-					/*eslint-enable no-unused-expressions*/
+					/* eslint-enable no-unused-expressions */
 
 					expect(globalizeStub.load.callCount).to.equal(1);
 					expect(globalizeStub.loadMessages.callCount).to.equal(0);
@@ -320,9 +320,9 @@ describe('globalize-express', function () {
 
 			globalizeMiddleware(reqStub, resStub, function (err) {
 				try {
-					/*eslint-disable no-unused-expressions*/
+					/* eslint-disable no-unused-expressions */
 					expect(err).to.exist;
-					/*eslint-enable no-unused-expressions*/
+					/* eslint-enable no-unused-expressions */
 
 					expect(globalizeStub.load.callCount).to.equal(1);
 					expect(globalizeStub.loadMessages.callCount).to.equal(0);

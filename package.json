@@ -30,15 +30,15 @@
   "homepage": "https://github.com/devangnegandhi/globalize-express",
   "dependencies": {
     "cldr-data": "^27.0.0",
-    "globalize": "^1.0.0-alpha.18",
+    "globalize": "^1.0.0",
     "kew": "^0.6.0"
   },
   "devDependencies": {
-    "chai": "^2.1.2",
+    "chai": "^3.1.0",
     "coveralls": "^2.11.2",
     "grunt": "^0.4.5",
     "grunt-cli": "^0.1.13",
-    "grunt-eslint": "^13.0.0",
+    "grunt-eslint": "^16.0.0",
     "grunt-mocha-istanbul": "^2.3.1",
     "istanbul": "^0.3.8",
     "load-grunt-config": "^0.17.0",
