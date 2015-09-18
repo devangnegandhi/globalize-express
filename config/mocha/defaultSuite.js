@@ -4,9 +4,9 @@ var chai = require('chai');
 chai.use(function (chaiObj) {
 	'use strict';
 	chaiObj.Assertion.addMethod('withMessage', function (msg) {
-		/* eslint-disable no-undef*/
+		/* eslint-disable no-undef, no-invalid-this*/
 		_.flag(this, 'message', msg);
-		/* eslint-enable no-undef*/
+		/* eslint-enable no-undef, no-invalid-this*/
 	});
 });
 

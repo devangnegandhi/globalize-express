@@ -56,9 +56,9 @@ describe('globalize-express', function () {
 					expect(globalizeStub.loadMessages.getCall(0).args[0].type).to.equal('mock');
 					expect(globalizeStub.loadMessages.getCall(1).args[0].type).to.equal('another mock');
 
-					done();
+					return done();
 				} catch (e) {
-					done(e);
+					return done(e);
 				}
 			});
 		});
@@ -98,9 +98,9 @@ describe('globalize-express', function () {
 
 					expect(reqStub.locale).to.equal('es');
 
-					done();
+					return done();
 				} catch (e) {
-					done(e);
+					return done(e);
 				}
 			});
 		});
@@ -119,9 +119,9 @@ describe('globalize-express', function () {
 
 					expect(reqStub.locale).to.equal('de');
 
-					done();
+					return done();
 				} catch (e) {
-					done(e);
+					return done(e);
 				}
 			});
 		});
@@ -140,9 +140,9 @@ describe('globalize-express', function () {
 
 					expect(reqStub.locale).to.equal('fr');
 
-					done();
+					return done();
 				} catch (e) {
-					done(e);
+					return done(e);
 				}
 			});
 		});
@@ -163,9 +163,9 @@ describe('globalize-express', function () {
 
 					expect(reqStub.locale).to.equal(mockConfig.defaultLocale);
 
-					done();
+					return done();
 				} catch (e) {
-					done(e);
+					return done(e);
 				}
 			});
 		});
@@ -186,9 +186,9 @@ describe('globalize-express', function () {
 					expect(reqStub.Globalize).to.exist;
 					/* eslint-enable no-unused-expressions */
 
-					done();
+					return done();
 				} catch (e) {
-					done(e);
+					return done(e);
 				}
 			});
 		});
@@ -233,9 +233,9 @@ describe('globalize-express', function () {
 					expect(require.cache[require.resolve('globalize')]).to.not.exist;
 					/* eslint-enable no-unused-expressions */
 
-					done();
+					return done();
 				} catch (e) {
-					done(e);
+					return done(e);
 				}
 			});
 		});
@@ -278,9 +278,9 @@ describe('globalize-express', function () {
 					expect(globalizeStub.load.callCount).to.equal(1);
 					expect(globalizeStub.loadMessages.callCount).to.equal(0);
 
-					done();
+					return done();
 				} catch (e) {
-					done(e);
+					return done(e);
 				}
 			});
 		});
@@ -302,9 +302,9 @@ describe('globalize-express', function () {
 
 					expect(globalizeStub.load.callCount).to.equal(1);
 					expect(globalizeStub.loadMessages.callCount).to.equal(0);
-					done();
+					return done();
 				} catch (e) {
-					done(e);
+					return done(e);
 				}
 			});
 		});
@@ -326,9 +326,9 @@ describe('globalize-express', function () {
 
 					expect(globalizeStub.load.callCount).to.equal(1);
 					expect(globalizeStub.loadMessages.callCount).to.equal(0);
-					done();
+					return done();
 				} catch (e) {
-					done(e);
+					return done(e);
 				}
 			});
 		});

@@ -4,9 +4,9 @@ module.exports = function (grunt, opts) {
 	'use strict';
 
 	return {
-        options: {
-            configFile: path.join('config', 'eslint', 'eslint.json')
-        },
-        target: opts.jsFilesArr
+		options: {
+			configFile: path.join('config', 'eslint', 'eslint.json')
+		},
+		target: opts.jsFilesArr
 	};
 };
