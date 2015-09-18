@@ -6,6 +6,9 @@
   "scripts": {
     "test": "grunt verify",
     "coveralls": "cat ./build/reports/istanbul/lcov.info | node_modules/.bin/coveralls",
+    "bump_major": "npm version major",
+    "bump_minor": "npm version minor",
+    "bump_patch": "npm version patch",
     "preversion": "npm test",
     "postversion": "git push && git push --tags"
   },
