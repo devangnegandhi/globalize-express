@@ -82,3 +82,6 @@ For every individual request that your express app receives, the `Globalize` obj
 Depending on what was found first, it uses that as its locale to return appropriate strings.
 
 **NOTE**: if the locale selected was not in the `config.locales` array, then it will fall back to the `config.defaultLocale` locale
+
+## Example
+There is a working express.js example app provided in this repo. Please go through the [example/README.md](https://github.com/devangnegandhi/globalize-express/tree/master/example) file to see instructions on how to run the example.

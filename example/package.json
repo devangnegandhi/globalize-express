@@ -1,0 +1,20 @@
+{
+  "name": "globalize-express-example",
+  "version": "1.0.0",
+  "description": "Example express server using globalize express",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "clean": "rm -rf node_modules"
+  },
+  "author": "Devang Negandhi",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "cldr-data": "^28.0.0",
+    "express": "^4.13.3",
+    "globalize-express": "^1.2.0",
+    "mustache-express": "^1.2.1"
+  }
+}
