@@ -26,13 +26,13 @@ describe('globalize-express', function () {
 		mockery.registerAllowable('fs');
 		mockery.registerAllowable('kew');
 		mockery.registerAllowable('path');
-		mockery.registerAllowable('../src/globalize-express');
-		mockery.registerAllowable('../tests/mocks/mockData');
+		mockery.registerAllowable('../../src/globalize-express');
+		mockery.registerAllowable('../tests/unit_tests/mocks/mockData');
 		mockery.registerAllowable('./mocks/mockRequire');
 		mockery.registerAllowable(require.resolve(mockConfig.directory + '/mockLocale.json'));
 		mockery.registerAllowable(require.resolve(mockConfig.directory + '/subdir/anotherMockLocale.json'));
 
-		globalizeExpress = require('../src/globalize-express');
+		globalizeExpress = require('../../src/globalize-express');
 	});
 
 	describe('config', function () {

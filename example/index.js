@@ -20,6 +20,8 @@ app.get('/', function(req, res) {
 	res.render('example_page', {
 		title: req.Globalize.formatMessage('example/title'),
 		welcome: req.Globalize.formatMessage('example/welcome'),
+		todaysDate: req.Globalize.formatDate(new Date('August 5, 1987')),
+		million: req.Globalize.formatCurrency(1000000, 'USD'),
 		untransalated: req.Globalize.formatMessage('example/untransalated')
 	});
 });

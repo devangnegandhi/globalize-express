@@ -19,7 +19,7 @@ var mockConfig = {
 
 	// An array of locale data to load into globalize
 	localeData: [
-		'../tests/mocks/mockData'
+		'../tests/unit_tests/mocks/mockData'
 	],
 
 	// Set if running in development mode

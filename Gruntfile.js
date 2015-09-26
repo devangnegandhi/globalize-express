@@ -32,7 +32,10 @@ module.exports = function (grunt) {
 	]);
 
 	grunt.registerTask('test', [
-		'mocha_istanbul'
+		'mocha_istanbul',
+		'express:test',
+		'karma:funcTests',
+		'express:test:stop'
 	]);
 
 	grunt.registerTask('verify', [
