@@ -1,9 +1,9 @@
-var langs = ['en', 'fr', 'de'];
+var langs = ['', 'en', 'fr', 'de', 'invalid_value'];
 
 langs.forEach(function (lang) {
 	'use strict';
 
-	describe('Testing example app with url query param "lang" set to ' + lang, function () {
+	describe('Testing example app with url query param "lang" set to ' + (lang || 'nothing'), function () {
 		var globalize;
 
 		before(function () {
@@ -27,7 +27,7 @@ langs.forEach(function (lang) {
 		});
 	});
 
-	describe('Testing example app with "lang" cookies set to ' + lang, function () {
+	describe('Testing example app with "lang" cookies set to ' + (lang || 'nothing'), function () {
 		var globalize;
 
 		beforeEach(function () {
