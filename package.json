@@ -10,7 +10,8 @@
     "bump_minor": "npm version minor",
     "bump_patch": "npm version patch",
     "preversion": "npm test",
-    "postversion": "git push && git push --tags"
+    "postversion": "git push && git push --tags",
+    "postinstall": "cd ./example && npm install"
   },
   "repository": {
     "type": "git",
