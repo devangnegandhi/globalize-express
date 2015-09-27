@@ -50,6 +50,7 @@
     "grunt-mocha-istanbul": "^3.0.1",
     "istanbul": "^0.3.8",
     "jquery": "^2.1.4",
+    "js-cookie": "^2.0.3",
     "karma": "^0.13.9",
     "karma-chai": "^0.1.0",
     "karma-json-preprocessor": "^0.3.1",

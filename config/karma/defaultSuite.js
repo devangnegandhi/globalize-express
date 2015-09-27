@@ -65,3 +65,15 @@ before(function () {
 		Globalize.loadMessages(locale);
 	});
 });
+
+after(function () {
+	'use strict';
+	var cookie,
+		cookies = Cookies.get();
+
+	for (cookie in cookies) {
+		if (typeof cookie !== 'function') {
+			Cookies.remove(cookie);
+		}
+	}
+});

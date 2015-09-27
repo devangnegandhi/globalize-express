@@ -12,6 +12,7 @@ module.exports = function (grunt, opts) {
 				'node_modules/sinon/pkg/sinon.js',
 				'node_modules/chai/chai.js',
 				'node_modules/funcunit/dist/funcunit.js',
+				'node_modules/js-cookie/src/js.cookie.js',
 				'node_modules/globalize/node_modules/cldrjs/dist/cldr.js',
 				'node_modules/globalize/node_modules/cldrjs/dist/cldr/**/*.js',
 				'node_modules/globalize/dist/globalize.js',

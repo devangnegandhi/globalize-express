@@ -15,7 +15,8 @@
         "expectCount": true,
         "chai": true,
         "sinon": true,
-        "FuncUnit": true
+        "FuncUnit": true,
+        "Cookies": true
     },
 
     "rules": {
