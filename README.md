@@ -2,6 +2,7 @@
 [![Coverage Status](https://coveralls.io/repos/devangnegandhi/globalize-express/badge.svg?branch=master)](https://coveralls.io/r/devangnegandhi/globalize-express?branch=master)
 [![Dependency Status](https://david-dm.org/devangnegandhi/globalize-express.svg)](https://david-dm.org/devangnegandhi/globalize-express)
 [![devDependency Status](https://david-dm.org/devangnegandhi/globalize-express/dev-status.svg)](https://david-dm.org/devangnegandhi/globalize-express#info=devDependencies)
+[![MIT License] (https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/devangnegandhi/globalize-express/blob/master/LICENSE)
 
 # globalize-express
 The [globalize](https://github.com/jquery/globalize) middleware for the express framework
