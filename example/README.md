@@ -32,7 +32,7 @@ Simply go to http://localhost:3000/?lang=fr on your browser after running the de
 - Also, you will see the date and numbers represented in the France-french format
 
 ### To view it in German
-Simply go to http://localhost:3000/?lang=es on your browser after running the demo
+Simply go to http://localhost:3000/?lang=de on your browser after running the demo
 - In this demo, you will see the HTML title and the page header in german.
 - You will see an un-transalated string too - This was to demonstrate the fallback mechanism in globalize in case a transalation is not provided (see [this](https://github.com/jquery/globalize/blob/master/doc/api/message/load-messages.md#messages-inheritance) for more details)
 - Also, you will see the date and numbers represented in the Germany-german format
