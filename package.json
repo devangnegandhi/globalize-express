@@ -4,14 +4,13 @@
   "description": "The globalize middleware for the express framework",
   "main": "./src/globalize-express.js",
   "scripts": {
-    "test": "grunt verify",
+    "test": "cd ./example && npm install && cd ../ && grunt verify",
     "coveralls": "cat ./build/reports/istanbul/lcov.info | node_modules/.bin/coveralls",
     "bump_major": "npm version major",
     "bump_minor": "npm version minor",
     "bump_patch": "npm version patch",
     "preversion": "npm test",
-    "postversion": "git push && git push --tags",
-    "postinstall": "cd ./example && npm install"
+    "postversion": "git push && git push --tags"
   },
   "repository": {
     "type": "git",
