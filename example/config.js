@@ -6,7 +6,7 @@ var config = {
     defaultLocale: 'en',
 
     // A custom cookie name which may contain the locale to use
-    cookieName: null,
+    cookieName: 'lang',
 
     // location of all the locale json files on disk
     directory: __dirname + '/locales',

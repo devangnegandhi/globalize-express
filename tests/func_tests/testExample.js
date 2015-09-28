@@ -38,7 +38,7 @@ langs.forEach(function (lang) {
 		it('should show messages in ' + lang, function (done) {
 			expectCount = 5;
 
-			F.open('/app/', function () {
+			F.open('/app/?', function () {
 				F('#header').visible();
 
 				expect(F('title').text()).to.equal(globalize.formatMessage('example/title'));

@@ -2,6 +2,7 @@
 var express = require('express'),
 	path = require('path'),
 	globalizeExpress = require('globalize-express'),
+    cookieParser = require('cookie-parser'),
     mustacheExpress = require('mustache-express'),
 	config = require('./config');
 
@@ -12,6 +13,7 @@ var app = express(),
 app.engine('html', engine);
 app.set('view engine', 'html');
 app.set('views', path.join(__dirname, 'views'));
+app.use(cookieParser());
 
 // Add globalizeExpress as a middleware to your express app
 app.use(globalizeExpress(config));
