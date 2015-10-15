@@ -15,6 +15,8 @@ module.exports = function (grunt, opts) {
 				'node_modules/js-cookie/src/js.cookie.js',
 				'node_modules/cldrjs/dist/cldr.js',
 				'node_modules/cldrjs/dist/cldr/**/*.js',
+				'node_modules/globalize/node_modules/cldrjs/dist/cldr.js',
+				'node_modules/globalize/node_modules/cldrjs/dist/cldr/**/*.js',
 				'node_modules/globalize/dist/globalize.js',
 				'node_modules/globalize/dist/globalize/message.js',
 				'node_modules/globalize/dist/globalize/plural.js',
