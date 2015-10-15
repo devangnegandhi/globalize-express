@@ -16,6 +16,8 @@ var config = {
     localeData: [
         "cldr-data/supplemental/likelySubtags",
         "cldr-data/supplemental/numberingSystems.json",
+        "cldr-data/supplemental/plurals.json",
+        "cldr-data/supplemental/ordinals.json",
         "cldr-data/supplemental/currencyData.json",
         "cldr-data/supplemental/timeData.json",
         "cldr-data/supplemental/weekData.json",
