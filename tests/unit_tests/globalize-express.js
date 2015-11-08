@@ -8,11 +8,23 @@ var globalizeExpress;
 describe('globalize-express', function () {
 	'use strict';
 
-	var globalizeStub,
+	var cldrDataStub,
+		globalizeStub,
 		sandbox;
 
 	before(function () {
 		sandbox = sinon.sandbox.create();
+
+		cldrDataStub = sandbox.stub();
+		cldrDataStub.entireSupplemental = sandbox
+											.stub()
+											.returns('supplementalStub');
+		cldrDataStub.entireMainFor = sandbox
+										.stub();
+
+		mockConfig.locales.forEach(function (locale) {
+			cldrDataStub.entireMainFor.withArgs(locale).returns(locale + '_main');
+		});
 
 		globalizeStub = sandbox
 						.stub()
@@ -24,6 +36,7 @@ describe('globalize-express', function () {
 	beforeEach(function () {
 		mockery.enable();
 		mockery.registerMock('globalize', globalizeStub);
+		mockery.registerMock('cldr-data', cldrDataStub);
 		mockery.registerAllowable('fs');
 		mockery.registerAllowable('kew');
 		mockery.registerAllowable('path');
@@ -38,6 +51,16 @@ describe('globalize-express', function () {
 
 	describe('config', function () {
 		var globalizeMiddleware;
+
+		beforeEach(function () {
+			globalizeStub.reset();
+			globalizeStub.load.reset();
+			globalizeStub.loadMessages.reset();
+
+			cldrDataStub.reset();
+			cldrDataStub.entireSupplemental.reset();
+			cldrDataStub.entireMainFor.reset();
+		});
 
 		it('should load up fine', function (done) {
 			var mockReq = {},
@@ -73,6 +96,42 @@ describe('globalize-express', function () {
 			// Delete opts.messages and add opts.directory
 			delete mockConfigClone.messages;
 			mockConfigClone.directory = 'some/dir';
+
+			func = function () {
+				globalizeExpress(mockConfigClone);
+			};
+
+			expect(func).to.throw(Error);
+		});
+
+		it('should load up default locales if opts.localeData is not specified', function () {
+			var i = 0,
+				mockConfigClone = clone(mockConfig);
+
+			global.expectCount = (1 + mockConfigClone.locales.length);
+
+			// Delete opts.messages and add opts.directory
+			delete mockConfigClone.localeData;
+
+			globalizeExpress(mockConfigClone);
+
+			expect(globalizeStub.load.getCall(i).args[0]).to.equal('supplementalStub');
+
+			mockConfigClone.locales.forEach(function (locale) {
+				i++;
+				expect(globalizeStub.load.getCall(i).args[0]).to.equal(locale + '_main');
+			});
+		});
+
+		it('should throw an excpetion if both opts.localeData and opts.locales are not provided', function () {
+			var func,
+				mockConfigClone = clone(mockConfig);
+
+			global.expectCount = 1;
+
+			// Delete opts.messages and add opts.directory
+			delete mockConfigClone.locales;
+			delete mockConfigClone.localeData;
 
 			func = function () {
 				globalizeExpress(mockConfigClone);

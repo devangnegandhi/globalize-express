@@ -1,4 +1,5 @@
-var fs = require('fs'),
+var cldrData = require('cldr-data'),
+	fs = require('fs'),
 	globalize = require('globalize'),
 	kew = require('kew'),
 	path = require('path');
@@ -102,6 +103,22 @@ function loadLocaleData (dataList) {
 }
 
 /**
+ * Load default supplemental and locale data
+ * @param  {String[]} locales Array of all the locale data to load
+ */
+function loadDefaultLocaleData (locales) {
+	'use strict';
+
+	// Load all the supplemental data
+	globalize.load(cldrData.entireSupplemental());
+
+	// Load all the cldr-data for each individual locale
+	locales.forEach(function (locale) {
+		globalize.load(cldrData.entireMainFor(locale));
+	});
+}
+
+/**
  * Unload the module from require's cache and all the modules
  * that depend on it
  * @param  {String} moduleName The name of the module to delete
@@ -148,8 +165,18 @@ globalizeExpress = function (opts) {
 			+ '(see https://github.com/devangnegandhi/globalize-express/issues/2 for more info)');
 	}
 
-	// Load the locale data from disk
-	loadLocaleData(opts.localeData);
+	// If opts.localeData provided, then load the specified locale data from disk
+	if (opts.localeData) {
+		loadLocaleData(opts.localeData);
+
+	// Else if opts.locales provided, load default locale data
+	} else if (opts.locales) {
+		loadDefaultLocaleData(opts.locales);
+
+	// Else throw an error
+	} else {
+		throw new Error('Please specify either localeData or locales properties in the config');
+	}
 
 	// Load the locales from disk
 	loadLocaleFilesPromise = loadLocaleFiles(opts.messages);
