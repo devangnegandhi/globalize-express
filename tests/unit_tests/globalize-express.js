@@ -1,5 +1,6 @@
 var mockery = require('mockery');
 var sinon = require('sinon');
+var clone = require('clone');
 var fs = require('fs');
 var mockConfig = require('./mocks/mockConfig');
 var globalizeExpress;
@@ -29,8 +30,8 @@ describe('globalize-express', function () {
 		mockery.registerAllowable('../../src/globalize-express');
 		mockery.registerAllowable('../tests/unit_tests/mocks/mockData');
 		mockery.registerAllowable('./mocks/mockRequire');
-		mockery.registerAllowable(require.resolve(mockConfig.directory + '/mockLocale.json'));
-		mockery.registerAllowable(require.resolve(mockConfig.directory + '/subdir/anotherMockLocale.json'));
+		mockery.registerAllowable(require.resolve(mockConfig.messages + '/mockLocale.json'));
+		mockery.registerAllowable(require.resolve(mockConfig.messages + '/subdir/anotherMockLocale.json'));
 
 		globalizeExpress = require('../../src/globalize-express');
 	});
@@ -61,6 +62,23 @@ describe('globalize-express', function () {
 					return done(e);
 				}
 			});
+		});
+
+		it('should throw an excpetion if opts.directory is used instead of opts.messages in the config', function () {
+			var func,
+				mockConfigClone = clone(mockConfig);
+
+			global.expectCount = 1;
+
+			// Delete opts.messages and add opts.directory
+			delete mockConfigClone.messages;
+			mockConfigClone.directory = 'some/dir';
+
+			func = function () {
+				globalizeExpress(mockConfigClone);
+			};
+
+			expect(func).to.throw(Error);
 		});
 	});
 
@@ -265,7 +283,7 @@ describe('globalize-express', function () {
 		it('should pass an error to next() on invalid locale directory', function (done) {
 			global.expectCount = 3;
 
-			mockLocaleSandbox.stub(mockConfig, 'directory', './invalid/directory/');
+			mockLocaleSandbox.stub(mockConfig, 'messages', './invalid/directory/');
 
 			globalizeMiddleware = globalizeExpress(mockConfig);
 

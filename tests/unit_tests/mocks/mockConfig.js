@@ -15,7 +15,7 @@ var mockConfig = {
 	cookieName: 'someCookieName',
 
 	// where to store json files - defaults to './locales' relative to modules directory
-	directory: path.join(__dirname, '/mockLocales'),
+	messages: path.join(__dirname, '/mockLocales'),
 
 	// An array of locale data to load into globalize
 	localeData: [

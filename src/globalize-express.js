@@ -134,7 +134,7 @@ function unloadModule (moduleName) {
  * @param  {String[]}	opts.locales		An array of available locales (e.g ["en", "ch"])
  * @param  {String}		opts.defaultLocale	The default locale to fallback to
  * @param  {String} 	opts.cookieName 	The name of the cookie that stores locale info on the client
- * @param  {String} 	opts.directory 		The directory that contains all the locale files
+ * @param  {String} 	opts.messages 		The directory that contains all the locale files
  * @param  {Boolean} 	opts.devMode 		Is the webapp running in development mode or not
  * @return {Function}	An express compatible middleware method
  */
@@ -143,11 +143,16 @@ globalizeExpress = function (opts) {
 	var globalizeMiddleware,
 		loadLocaleFilesPromise;
 
+	if (!opts.messages && opts.directory) {
+		throw new Error('Please change the option "directory" to "messages" in your config file \n'
+			+ '(see https://github.com/devangnegandhi/globalize-express/issues/2 for more info)');
+	}
+
 	// Load the locale data from disk
 	loadLocaleData(opts.localeData);
 
 	// Load the locales from disk
-	loadLocaleFilesPromise = loadLocaleFiles(opts.directory);
+	loadLocaleFilesPromise = loadLocaleFiles(opts.messages);
 
 	/**
 	 * The middleware to setup localization
@@ -184,7 +189,7 @@ globalizeExpress = function (opts) {
 
 			globalize = require('globalize');
 			loadLocaleData(opts.localeData);
-			loadLocaleFilesPromise = loadLocaleFiles(opts.directory, opts.devMode);
+			loadLocaleFilesPromise = loadLocaleFiles(opts.messages, opts.devMode);
 		}
 
 		loadLocaleFilesPromise
