@@ -45,10 +45,12 @@ var config = {
     cookieName: null,
 
     // location of all the locale json files on disk
-    directory: __dirname + '/locales',
+    messages: __dirname + '/locales',
 
-    // An array of cldr data to load into globalize
+    // An OPTIONAL array of cldr data to load into globalize
     // Checkout: https://github.com/jquery/globalize#2-cldr-content
+    // If this property is not provided, globalize-express will dynamically load
+    // all possible cldr-data for the locales listed above.
     localeData: [
     ],
 
