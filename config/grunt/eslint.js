@@ -7,6 +7,8 @@ module.exports = function (grunt, opts) {
 		options: {
 			configFile: path.join('config', 'eslint', 'eslint.json')
 		},
-		target: opts.jsFilesArr
+		target: {
+			src: opts.jsFilesArr
+		}
 	};
 };

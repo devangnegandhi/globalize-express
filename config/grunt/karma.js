@@ -28,6 +28,8 @@ module.exports = function (grunt, opts) {
 
 				'node_modules/cldr-data/supplemental/likelySubtags.json',
 				'node_modules/cldr-data/supplemental/numberingSystems.json',
+				'node_modules/cldr-data/supplemental/plurals.json',
+				'node_modules/cldr-data/supplemental/ordinals.json',
 				'node_modules/cldr-data/supplemental/currencyData.json',
 				'node_modules/cldr-data/supplemental/timeData.json',
 				'node_modules/cldr-data/supplemental/weekData.json',
